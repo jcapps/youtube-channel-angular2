@@ -1,0 +1,39 @@
+@import 'about';
+@import 'colors';
+@import 'header';
+@import 'navbar';
+@import 'player';
+@import 'playlist';
+@import 'playlists';
+@import 'videos';
+
+body {
+    background-color: $page-background;
+}
+
+app-root {
+    width: 100%;
+    margin: 0 auto;
+    color: $primary;
+
+    .hidden {
+        display: hidden;
+    }
+
+    a:hover {
+        cursor: pointer;
+    }
+
+    #content {
+        margin: 0 auto;
+        padding: 100px 10px 20px 10px;
+        width: 100%;
+        text-align: center;
+    }
+}
+
+.toastr-center {
+    top: calc(50% - 28px);
+    left: calc(50% - 150px);
+    margin: 0 auto;
+}

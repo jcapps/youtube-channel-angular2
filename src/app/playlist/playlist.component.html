@@ -1,0 +1,26 @@
+<div *ngIf="playlistInfo && currentVideo" id="playlist-page">
+    <h2>{{playlistInfo.snippet.title}}</h2>
+    <div id="video-list">
+        <div *ngFor="let video of playlist">
+            <div class="playlist-video"
+                [class.selected]="video.snippet.position == videoInPlaylist"
+                id={{video.snippet.position}}
+                (click)="changeVideo($event)">
+
+                <video-thumbnail
+                    [position]="video.snippet.position"
+                    [video]="video">
+                </video-thumbnail>
+            </div>
+        </div>
+        <a *ngIf="nextPageToken" id="view-more" (click)="loadMoreVideos()">
+            <div><b>View More</b></div>
+        </a>
+    </div>
+    <video-player
+        [video]="currentVideo"
+        [playlistId]="playlistId"
+        [playlistIndex]="videoInPlaylist"
+        (updatePlaylist)="updatePlaylist($event)">
+    </video-player>
+</div>

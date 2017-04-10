@@ -1,0 +1,48 @@
+nav {
+    height: 40px;
+    font-weight: bold;
+
+    ul {
+        margin: 0;
+        padding: 0;
+        list-style-type: none;
+    }
+
+    li {
+        a, a:active, a:visited, a:focus {
+            text-decoration: none;
+            color: $header-contrast;
+
+            div {
+                padding: 10px 25px;
+            }
+        }
+
+        a:hover {
+            text-decoration: none;
+
+            div {
+                background-color: $header-contrast;
+                color: $header-primary;
+            }
+        }
+    }
+    
+    & > ul > li {
+        display: inline-block;
+        vertical-align: top;
+
+        & > ul { 
+            background-color: $header-primary;
+            position: absolute;
+
+            & > li {
+                display: block;
+            }
+        }
+    }
+
+    .nav-view-all {
+        border-top: 1px solid $header-contrast;
+    }
+}

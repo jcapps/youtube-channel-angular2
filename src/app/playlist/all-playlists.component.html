@@ -1,0 +1,12 @@
+<div id="playlists-page">
+    <h2>{{pageTitle}}</h2>
+    <div *ngIf="playlists" id="playlists-list">
+        <a *ngFor="let playlist of playlists"
+            [routerLink]="['/playlist', playlist.id]">
+            <playlist-result [playlist]="playlist"></playlist-result>
+        </a>
+        <a *ngIf="nextPageToken" id="view-more" (click)="loadMorePlaylists()">
+            <div><b>View More</b></div>
+        </a>
+    </div>
+</div>

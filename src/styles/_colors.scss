@@ -1,0 +1,27 @@
+$white: white;
+$lightgray: lightgray;
+$gray: gray;
+$black: #1a1a1a;
+
+$anchor-blue: dodgerblue;
+$anchor-purple: mediumpurple;
+
+$red: red;
+
+/* Page default colors */
+$page-background: $lightgray;
+$grid-border: $gray;
+$primary: $black;
+$contrast: $white;
+$anchor: $anchor-purple;
+$youtube-red: darken($red, 10%);
+$youtube-lightred: $red;
+$youtube-border: darken($red, 25%);
+
+/* Header colors */
+$header-primary: $black;
+$header-contrast: $white;
+$header-title: $gray;
+
+/* Selected video's shadow color */
+$selected-shadow: $anchor-purple;

@@ -1,0 +1,12 @@
+<div id="videos-page">
+    <h2>{{pageTitle}}</h2>
+    <div *ngIf="playlist" id="video-list">
+        <a *ngFor="let video of playlist"
+            [routerLink]="['/watch', video.snippet.resourceId.videoId]">
+            <video-result videoId="{{video.snippet.resourceId.videoId}}"></video-result>
+        </a>
+        <a *ngIf="nextPageToken" id="view-more" (click)="loadMoreVideos()">
+            <div><b>View More</b></div>
+        </a>
+    </div>
+</div>
