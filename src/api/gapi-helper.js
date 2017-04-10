@@ -1,16 +1,16 @@
 import { Observable } from 'rxjs/Observable';
-const toastr = require('toastr');
+var toastr = require('toastr');
 
-const CLIENT_ID = process.env.CLIENT_ID;
-const KEY = process.env.YOUTUBE_KEY;
-const CHANNEL_ID = process.env.CHANNEL_ID;
+var CLIENT_ID = process.env.CLIENT_ID;
+var KEY = process.env.YOUTUBE_KEY;
+var CHANNEL_ID = process.env.CHANNEL_ID;
 
-const googleClientApiUrl = 'https://apis.google.com/js/api.js';
-const subscribeScope = 'https://www.googleapis.com/auth/youtube';
-const subscribeDiscoveryDocs = ['https://www.googleapis.com/discovery/v1/apis/youtube/v3/rest'];
+var googleClientApiUrl = 'https://apis.google.com/js/api.js';
+var subscribeScope = 'https://www.googleapis.com/auth/youtube';
+var subscribeDiscoveryDocs = ['https://www.googleapis.com/discovery/v1/apis/youtube/v3/rest'];
 
-const gapiHelper = () => {
-    const subscribeParams = {
+var gapiHelper = function() {
+    var subscribeParams = {
         'part': 'id, snippet',
         'snippet': {
             'resourceId': {
@@ -20,24 +20,24 @@ const gapiHelper = () => {
         }
     };
 
-    return Observable.create(observer => {
-        let GoogleAuth;
-        let gapiScript = document.createElement('script');
+    return Observable.create(function(observer) {
+        var GoogleAuth;
+        var gapiScript = document.createElement('script');
         gapiScript.id = 'gapiScript';
         gapiScript.src = googleClientApiUrl;
-        gapiScript.onload = () => {
-            gapi.load('client:auth2', () => {
+        gapiScript.onload = function() {
+            gapi.load('client:auth2', function() {
                 gapi.client.init({
                     'apiKey': KEY,
                     'clientId': CLIENT_ID,
                     'scope': subscribeScope,
                     'discoveryDocs': subscribeDiscoveryDocs
-                }).then(() => {
+                }).then(function() {
                     GoogleAuth = gapi.auth2.getAuthInstance();
-                    GoogleAuth.signIn().then(() => {
+                    GoogleAuth.signIn().then(function() {
                         if (GoogleAuth.isSignedIn.get()) {
-                            let request = gapi.client.youtube.subscriptions.insert(subscribeParams);
-                            request.execute(res => {
+                            var request = gapi.client.youtube.subscriptions.insert(subscribeParams);
+                            request.execute(function(res) {
                                 toastr.options = { positionClass: 'toastr-center' };
                                 if (res.result) {
                                     toastr.success('Subscribed!');
@@ -48,7 +48,7 @@ const gapiHelper = () => {
                         } else {
                             toastr.error('Unable to sign in.');
                         }
-                        let scriptToRemove = document.getElementById('gapiScript');
+                        var scriptToRemove = document.getElementById('gapiScript');
                         scriptToRemove.parentNode.removeChild(scriptToRemove);
                         observer.complete();
                     });
