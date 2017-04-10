@@ -11,7 +11,9 @@ import { SharedModule } from './shared/shared.module';
 import { VideoModule } from './video/video.module';
 
 import { AppComponent }  from './app.component';
-import { YouTubeApi } from '../api/YouTubeApi';
+import { YouTubeApi } from '../api/youtube.api';
+import { RecentUploadsLogic } from '../logic/recent-uploads.logic';
+import { YouTubeLogic } from '../logic/youtube.logic';
 import { routes } from './router/routes';
 
 @NgModule({
@@ -27,7 +29,11 @@ import { routes } from './router/routes';
     VideoModule
   ],
   declarations: [ AppComponent ],
-  providers: [ YouTubeApi ],
+  providers: [
+    RecentUploadsLogic,
+    YouTubeApi,
+    YouTubeLogic
+  ],
   bootstrap: [ AppComponent ]
 })
 export class AppModule {}

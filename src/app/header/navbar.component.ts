@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { YouTubeApi } from '../../api/YouTubeApi';
+import { YouTubeLogic } from '../../logic/youtube.logic';
 
 @Component({
     selector: 'navbar',
@@ -9,13 +9,12 @@ export class NavbarComponent implements OnInit {
     public pageTitle: string = `Acme Product Management`;
     public allPlaylists: Array<Object>;
 
-    constructor(private youtubeApi: YouTubeApi) {}
+    constructor(private youtubeLogic: YouTubeLogic) {}
 
     ngOnInit(): void {
-        this.youtubeApi.getAllPlaylists()
-            .subscribe(playlists => {
-                this.allPlaylists = playlists.items.slice(0, 5);
-            });
+        this.youtubeLogic.getAllPlaylists().subscribe(playlists => {
+            this.allPlaylists = playlists.items.slice(0, 5);
+        });
     }
 
     showSubmenu(e: any): void {

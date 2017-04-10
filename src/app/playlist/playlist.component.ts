@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
-import { YouTubeApi } from '../../api/YouTubeApi';
+import { YouTubeLogic } from '../../logic/youtube.logic';
 
 @Component({
     templateUrl: './playlist.component.html'
@@ -16,7 +16,7 @@ export class PlaylistComponent implements OnInit {
     constructor(
         private router: Router,
         private route: ActivatedRoute,
-        private youtubeApi: YouTubeApi
+        private youtubeLogic: YouTubeLogic
     ) {}
 
     ngOnInit(): void {
@@ -31,22 +31,19 @@ export class PlaylistComponent implements OnInit {
         this.playlistId = this.route.snapshot.params['id'];
         this.videoInPlaylist = 0;
 
-        this.youtubeApi.getPlaylist(this.playlistId)
-            .subscribe((playlist: any) => {
-                this.playlist = playlist.items;
-                this.nextPageToken = playlist.nextPageToken;
+        this.youtubeLogic.getPlaylist(this.playlistId).subscribe((playlist: any) => {
+            this.playlist = playlist.items;
+            this.nextPageToken = playlist.nextPageToken;
 
-                const videoId = this.playlist[this.videoInPlaylist].snippet.resourceId.videoId;
-                this.youtubeApi.getVideo(videoId)
-                    .subscribe((video: any) => {
-                        this.currentVideo = video.items[0];
-                    });
+            const videoId = this.playlist[this.videoInPlaylist].snippet.resourceId.videoId;
+            this.youtubeLogic.getVideo(videoId).subscribe((video: any) => {
+                this.currentVideo = video.items[0];
             });
+        });
 
-        this.youtubeApi.getPlaylistInfo(this.playlistId)
-            .subscribe((playlistInfo: any) => {
-                this.playlistInfo = playlistInfo.items[0];
-            });
+        this.youtubeLogic.getPlaylistInfo(this.playlistId).subscribe((playlistInfo: any) => {
+            this.playlistInfo = playlistInfo.items[0];
+        });
     }
 
     changeVideo(e: any) {
@@ -65,18 +62,16 @@ export class PlaylistComponent implements OnInit {
 
     updateVideoInPlaylist(playlistIndex: number): void {
         const videoId = this.playlist[playlistIndex].snippet.resourceId.videoId;
-        this.youtubeApi.getVideo(videoId)
-            .subscribe((video: any) => {
-                this.currentVideo = video.items[0];
-                this.videoInPlaylist = playlistIndex;
-            });
+        this.youtubeLogic.getVideo(videoId).subscribe((video: any) => {
+            this.currentVideo = video.items[0];
+            this.videoInPlaylist = playlistIndex;
+        });
     }
 
     loadMoreVideos(): void {
-        this.youtubeApi.getPlaylist(this.playlistId, this.nextPageToken)
-            .subscribe((nextVideos: any) => {
-                this.playlist = this.playlist.concat(nextVideos.items);
-                this.nextPageToken = nextVideos.nextPageToken;
-            });
+        this.youtubeLogic.getPlaylist(this.playlistId, this.nextPageToken).subscribe((nextVideos: any) => {
+            this.playlist = this.playlist.concat(nextVideos.items);
+            this.nextPageToken = nextVideos.nextPageToken;
+        });
     }
 }

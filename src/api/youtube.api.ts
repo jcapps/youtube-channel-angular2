@@ -3,7 +3,7 @@ import { Http, URLSearchParams, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
-import gapiHelper from './gapiHelper';
+import gapiHelper from './gapi-helper';
 
 const KEY = process.env.YOUTUBE_KEY;
 const CHANNEL_ID = process.env.CHANNEL_ID;

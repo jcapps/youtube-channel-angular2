@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { YouTubeApi } from '../../api/YouTubeApi';
+import { YouTubeLogic } from '../../logic/youtube.logic';
 
 @Component({
     selector: 'video-result',
@@ -8,12 +8,11 @@ import { YouTubeApi } from '../../api/YouTubeApi';
 export class VideoResultComponent implements OnInit {
     @Input() private videoId: string;
     public video: Object = null;
-    constructor(private youtubeApi: YouTubeApi) {}
+    constructor(private youtubeLogic: YouTubeLogic) {}
 
     ngOnInit(): void {
-        this.youtubeApi.getVideo(this.videoId)
-            .subscribe((video: any) => {
-                this.video = video.items[0];
-            });
+        this.youtubeLogic.getVideo(this.videoId).subscribe((video: any) => {
+            this.video = video.items[0];
+        });
     }
 }
