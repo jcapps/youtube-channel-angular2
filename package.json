@@ -1,7 +1,7 @@
 {
-  "name": "angular2-webpack-starter-kit",
+  "name": "youtube-channel-angular2",
   "version": "1.0.0",
-  "description": "Starter kit for Angular 2 and Webpack",
+  "description": "Site showcasing my YouTube channel",
   "scripts": {
     "start": "npm-run-all --parallel open:src lint:watch",
     "open:src": "node tools/srcServer.js",
