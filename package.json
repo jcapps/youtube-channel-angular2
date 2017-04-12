@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "description": "Site showcasing my YouTube channel",
   "scripts": {
-    "start": "npm-run-all --parallel open:src lint:watch",
+    "start": "npm-run-all --parallel open:src lint:watch test:watch",
     "open:src": "node tools/srcServer.js",
     "lint": "tslint ./src/**/*.ts -t verbose",
-    "lint:watch": "npm run lint -- --watch",
+    "lint:watch": "chokidar ./src/**/*.ts -c \"npm run lint\" --initial --verbose",
     "test": "karma start karma.webpack.conf.js",
     "test:watch": "npm run test -- --watch",
     "clean-dist": "npm run remove-dist && mkdir dist",
@@ -17,7 +17,7 @@
     "postbuild": "node tools/distServer.js"
   },
   "keywords": [],
-  "author": "Deborah Kurata & James Capps",
+  "author": "James Capps",
   "license": "ISC",
   "dependencies": {
     "@angular/common": "2.0.0",
@@ -40,6 +40,8 @@
     "angular2-template-loader": "^0.6.0",
     "awesome-typescript-loader": "^3.0.4",
     "cheerio": "^0.22.0",
+    "chokidar-cli": "^1.2.0",
+    "colors": "^1.1.2",
     "css-loader": "^0.26.1",
     "express": "4.13.4",
     "extract-text-webpack-plugin": "^2.1.0",
@@ -79,6 +81,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/jcapps/angular2-webpack-starter-kit"
+    "url": "https://github.com/jcapps/youtube-channel-angular2"
   }
 }
