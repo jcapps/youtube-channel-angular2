@@ -43,6 +43,11 @@ module.exports = {
         test: /\.css$/,
         include: helpers.root('src', 'app'),
         loader: 'raw-loader'
+      },
+      {
+        test: /(\.scss)$/,
+        exclude: /node_modules/,
+        loader: 'css-loader!sass-loader'
       }
     ]
   },
