@@ -1,4 +1,6 @@
-import { Component, Input, OnInit, OnChanges, Output, EventEmitter, NgZone } from '@angular/core';
+import { Component, EventEmitter, OnInit,
+        OnChanges, SimpleChanges,
+        Input, Output, NgZone } from '@angular/core';
 const YouTubePlayer = require('youtube-player');
 
 let player: any;
@@ -10,7 +12,6 @@ let player: any;
 
 export class VideoPlayerComponent implements OnInit, OnChanges {
     private isInitialized: boolean = false;
-    private storedPlaylistId: string;
     @Input() public video: any;
     @Input() private playlistId: string;
     @Input() private playlistIndex: number;
@@ -22,12 +23,12 @@ export class VideoPlayerComponent implements OnInit, OnChanges {
         this.initializePlayer();
     }
 
-    ngOnChanges(): void {
+    ngOnChanges(changes: SimpleChanges): void {
         if (this.isInitialized && this.playlistIndex > -1) {
-            if (this.playlistId === this.storedPlaylistId) {
-                player.playVideoAt(this.playlistIndex);
-            } else {
+            if (changes.playlistId) {
                 this.initializePlayer();
+            } else if (changes.playlistIndex) {
+                player.playVideoAt(this.playlistIndex);
             }
         }
     }
@@ -61,6 +62,5 @@ export class VideoPlayerComponent implements OnInit, OnChanges {
             }
         });
         this.isInitialized = true;
-        this.storedPlaylistId = this.playlistId;
     }
 }

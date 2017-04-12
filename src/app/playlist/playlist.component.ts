@@ -61,6 +61,7 @@ export class PlaylistComponent implements OnInit {
     }
 
     updateVideoInPlaylist(playlistIndex: number): void {
+        this.videoInPlaylist = -1;
         const videoId = this.playlist[playlistIndex].snippet.resourceId.videoId;
         this.youtubeLogic.getVideo(videoId).subscribe((video: any) => {
             this.currentVideo = video.items[0];
