@@ -9,6 +9,7 @@
     "lint:watch": "chokidar ./src/**/*.ts -c \"npm run lint\" --initial --verbose",
     "test": "karma start karma.webpack.conf.js",
     "test:watch": "npm run test -- --no-single-run",
+    "lint-test": "npm-run-all --parallel lint:watch test:watch",
     "clean-dist": "npm run remove-dist && mkdir dist",
     "remove-dist": "node_modules/.bin/rimraf ./dist",
     "build:html": "node tools/buildHtml.js",
