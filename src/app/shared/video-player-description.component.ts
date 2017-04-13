@@ -21,8 +21,8 @@ export class VideoPlayerDescriptionComponent implements OnInit, OnChanges {
 
     buildDescription(): void {
         const vidTitle = this.video.snippet.title.split(/\|(.+)/);
-        this.title = vidTitle[0];
-        this.subtitle = vidTitle[1];
+        this.title = vidTitle[0].trim();
+        this.subtitle = vidTitle[1].trim();
         this.description = this.video.snippet.description.split('\n');
     }
 }
