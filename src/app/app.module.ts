@@ -14,7 +14,7 @@ import { AppComponent }  from './app.component';
 import { YouTubeApi } from '../api/youtube.api';
 import { RecentUploadsLogic } from '../logic/recent-uploads.logic';
 import { YouTubeLogic } from '../logic/youtube.logic';
-import { routes } from './router/routes';
+import { routes } from './routes';
 
 @NgModule({
   imports: [
