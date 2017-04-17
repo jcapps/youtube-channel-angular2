@@ -20,6 +20,9 @@ export class AllVideosComponent implements OnInit {
             this.playlist = playlist.items;
             this.nextPageToken = playlist.nextPageToken;
         });
+        this.recentUploadsLogic.getRecentUploadsPlaylistId().subscribe((id: string) => {
+            this.playlistId = id;
+        });
     }
 
     loadMoreVideos(): void {
