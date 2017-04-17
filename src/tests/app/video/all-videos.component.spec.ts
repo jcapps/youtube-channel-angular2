@@ -29,6 +29,7 @@ describe('AllVideosComponent', () => {
         ],
         nextPageToken: 'TOKEN'
     };
+    const playlistId = '1';
     let fixture: ComponentFixture<AllVideosComponent>;
     let component: AllVideosComponent;
     let recentUploadsLogic: any;
@@ -38,6 +39,9 @@ describe('AllVideosComponent', () => {
     class MockRecentUploadsLogic {
         public getRecentUploadsPlaylist(): Observable<any> {
             return Observable.of(playlist);
+        }
+        public getRecentUploadsPlaylistId(): Observable<string> {
+            return Observable.of(playlistId);
         }
     }
 
@@ -69,7 +73,9 @@ describe('AllVideosComponent', () => {
         component = fixture.componentInstance;
 
         recentUploadsLogic = fixture.debugElement.injector.get(RecentUploadsLogic);
+        console.log(recentUploadsLogic);
         spyOn(recentUploadsLogic, 'getRecentUploadsPlaylist').and.returnValue(Observable.of(playlist));
+        spyOn(recentUploadsLogic, 'getRecentUploadsPlaylistId').and.returnValue(Observable.of(playlistId));
 
         youtubeLogic = fixture.debugElement.injector.get(YouTubeLogic);
         spyOn(youtubeLogic, 'getPlaylist').and.returnValue(Observable.of(playlist));
@@ -82,6 +88,7 @@ describe('AllVideosComponent', () => {
     it('Should getRecentUploadsPlaylist on init', () => {
         fixture.detectChanges();
         expect(recentUploadsLogic.getRecentUploadsPlaylist).toHaveBeenCalledTimes(1);
+        expect(recentUploadsLogic.getRecentUploadsPlaylistId).toHaveBeenCalledTimes(1);
     });
 
     it('Should create page heading', () => {
