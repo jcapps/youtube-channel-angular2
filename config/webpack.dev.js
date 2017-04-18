@@ -44,6 +44,20 @@ module.exports = webpackMerge(commonConfig, {
       inject: false
     })
   ],
+
+  module: {
+    rules: [
+      {
+        test: /(\.css)$/,
+        loaders: ['style-loader', 'css-loader']
+      },
+      {
+        test: /(\.scss)$/,
+        exclude: /node_modules/,
+        loaders: ['style-loader', 'css-loader', 'sass-loader']
+      }
+    ]
+  },
   
   devServer: {
     historyApiFallback: true,

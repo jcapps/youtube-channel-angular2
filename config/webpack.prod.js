@@ -31,6 +31,21 @@ module.exports = webpackMerge(commonConfig, {
     chunkFilename: '[id].[hash].chunk.js'
   },
 
+  module: {
+    rules: [
+      {
+        test: /\.css$/,
+        exclude: helpers.root('src', 'app'),
+        loader: ExtractTextPlugin.extract({ fallback: 'style-loader', use: 'css-loader?sourceMap' })
+      },
+      {
+        test: /(\.scss)$/,
+        exclude: /node_modules/,
+        loader: ExtractTextPlugin.extract({ fallback: 'style-loader', use: 'css-loader!sass-loader' })
+      }
+    ]
+  },
+
   plugins: [
     new webpack.DefinePlugin(GLOBALS),
     new webpack.NoEmitOnErrorsPlugin(),
