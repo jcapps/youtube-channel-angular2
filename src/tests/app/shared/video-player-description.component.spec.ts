@@ -9,7 +9,8 @@ describe('VideoPlayerDescriptionComponent', () => {
         id: 'q60pO0nOLn8',
         snippet: {
             title: 'Title | Test Video',
-            description: 'Test Description\nCreated by: Me\nAssembled by: Me'
+            description: 'Test Description\nCreated by: Me\nAssembled by: Me',
+            publishedAt: '2017-01-01T10:00:00.000Z'
         }
     };
 
@@ -63,12 +64,23 @@ describe('VideoPlayerDescriptionComponent', () => {
 
         fixture.detectChanges();
         const detailsDiv: DebugElement = fixture.debugElement.query(By.css('div.video-details'));
-        const description: DebugElement = detailsDiv.query(By.css('p'));
+        const description: DebugElement = detailsDiv.query(By.css('p.video-description'));
         const descriptionParts: Array<DebugElement> = description.queryAll(By.css('span'));
 
         expect(descriptionParts.length).toEqual(3);
         expect(descriptionParts[0].nativeElement.textContent).toEqual('Test Description');
         expect(descriptionParts[1].nativeElement.textContent).toEqual('Created by: Me');
         expect(descriptionParts[2].nativeElement.textContent).toEqual('Assembled by: Me');
+    });
+
+    it('Should create the publish date in details', () => {
+        const fixture: ComponentFixture<WrapperComponent>
+            = TestBed.createComponent(WrapperComponent);
+
+        fixture.detectChanges();
+        const detailsDiv: DebugElement = fixture.debugElement.query(By.css('div.video-details'));
+        const date: DebugElement = detailsDiv.query(By.css('p.date-published'));
+
+        expect(date.nativeElement.textContent).toEqual('Published: Jan 1, 2017');
     });
 });

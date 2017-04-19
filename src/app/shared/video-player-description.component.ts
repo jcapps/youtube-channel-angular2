@@ -10,6 +10,7 @@ export class VideoPlayerDescriptionComponent implements OnInit, OnChanges {
     public title: string;
     public subtitle: string;
     public description: Array<string>;
+    public date: string;
 
     ngOnInit(): void {
         this.buildDescription();
@@ -23,6 +24,10 @@ export class VideoPlayerDescriptionComponent implements OnInit, OnChanges {
         const vidTitle = this.video.snippet.title.split(/\|(.+)/);
         this.title = vidTitle[0].trim();
         this.subtitle = vidTitle[1].trim();
+
         this.description = this.video.snippet.description.split('\n');
+
+        const date = new Date(this.video.snippet.publishedAt);
+        this.date = date.toLocaleString('en-us', { year: 'numeric', month: 'short', day: 'numeric' });
     }
 }

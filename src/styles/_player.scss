@@ -74,6 +74,10 @@
         max-width: 640px;
         background-color: $contrast;
 
+        .date-published {
+            font-weight: bold;
+        }
+
         hr {
             margin: 5px auto;
             max-width: 400px;
