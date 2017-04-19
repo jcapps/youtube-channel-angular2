@@ -82,6 +82,16 @@ export class YouTubeApi {
             .map((response: Response) => response.json());
     }
 
+    getVideoStats(id: string): Observable<any> {
+        let params = new URLSearchParams();
+        params.set('key', KEY);
+        params.set('id', id);
+        params.set('part', 'statistics');
+
+        return this._http.get(videoUrl, { search: params })
+            .map((response: Response) => response.json());
+    }
+
     subscribe(): Observable<any> {
         return gapiHelper();
     }

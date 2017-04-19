@@ -31,6 +31,9 @@ describe('VideoWatchPageComponent', () => {
         public getVideo(): Observable<any> {
             return Observable.of(video);
         }
+        public getVideoStats(): Observable<any> {
+            return Observable.of({});
+        }
     }
 
     const mockActivatedRoute = {

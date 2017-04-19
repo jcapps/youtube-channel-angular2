@@ -31,6 +31,16 @@ export class YouTubeLogic {
         return this.youtubeApi.getVideo(id);
     }
 
+    getVideoStats(id: string): Observable<any> {
+        return Observable.create((observer: any) => {
+            this.youtubeApi.getVideoStats(id).subscribe(video => {
+                const stats = video.items[0].statistics;
+                observer.next(stats);
+                observer.complete();
+            });
+        });
+    }
+
     subscribeToChannel(): Observable<any> {
         return this.youtubeApi.subscribe();
     }

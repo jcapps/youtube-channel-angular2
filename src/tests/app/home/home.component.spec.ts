@@ -7,6 +7,7 @@ import 'rxjs/add/observable/of';
 import { HomeComponent } from '../../../app/home/home.component';
 import { HomeModule } from '../../../app/home/home.module';
 import { RecentUploadsLogic } from '../../../logic/recent-uploads.logic';
+import { YouTubeLogic } from '../../../logic/youtube.logic';
 
 describe('HomeComponent', () => {
     const mostRecentUpload = {
@@ -27,13 +28,21 @@ describe('HomeComponent', () => {
         }
     }
 
+    @Injectable()
+    class MockYouTubeLogic {
+        public getVideoStats(): Observable<any> {
+            return Observable.of({});
+        }
+    }
+
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             imports: [ HomeModule ]
         }).overrideComponent(HomeComponent, {
             set: {
                 providers: [
-                    { provide: RecentUploadsLogic, useClass: MockRecentUploadsLogic }
+                    { provide: RecentUploadsLogic, useClass: MockRecentUploadsLogic },
+                    { provide: YouTubeLogic, useClass: MockYouTubeLogic }
                 ]
             }
         });

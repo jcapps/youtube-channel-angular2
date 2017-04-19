@@ -73,7 +73,6 @@ describe('AllVideosComponent', () => {
         component = fixture.componentInstance;
 
         recentUploadsLogic = fixture.debugElement.injector.get(RecentUploadsLogic);
-        console.log(recentUploadsLogic);
         spyOn(recentUploadsLogic, 'getRecentUploadsPlaylist').and.returnValue(Observable.of(playlist));
         spyOn(recentUploadsLogic, 'getRecentUploadsPlaylistId').and.returnValue(Observable.of(playlistId));
 
@@ -85,7 +84,7 @@ describe('AllVideosComponent', () => {
         expect(component instanceof AllVideosComponent).toBe(true);
     });
 
-    it('Should getRecentUploadsPlaylist on init', () => {
+    it('Should getRecentUploadsPlaylist and getRecentUploadsPlaylistId on init', () => {
         fixture.detectChanges();
         expect(recentUploadsLogic.getRecentUploadsPlaylist).toHaveBeenCalledTimes(1);
         expect(recentUploadsLogic.getRecentUploadsPlaylistId).toHaveBeenCalledTimes(1);

@@ -68,6 +68,9 @@ describe('PlaylistComponent', () => {
         public getVideo(): Observable<any> {
             return Observable.of(currentVideo);
         }
+        public getVideoStats(): Observable<any> {
+            return Observable.of({});
+        }
     }
 
     const mockActivatedRoute = {

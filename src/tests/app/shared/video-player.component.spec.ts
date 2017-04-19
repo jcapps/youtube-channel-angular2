@@ -1,9 +1,13 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { DebugElement } from '@angular/core';
+import { DebugElement, Injectable } from '@angular/core';
 import { By } from '@angular/platform-browser';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/of';
 
 import { VideoPlayerComponent } from '../../../app/shared/video-player.component';
 import { VideoPlayerDescriptionComponent } from '../../../app/shared/video-player-description.component';
+import { VideoPlayerStatsComponent } from '../../../app/shared/video-player-stats.component';
+import { YouTubeLogic } from '../../../logic/youtube.logic';
 
 describe('VideoPlayerComponent', () => {
     const video = {
@@ -16,9 +20,26 @@ describe('VideoPlayerComponent', () => {
     let fixture: ComponentFixture<VideoPlayerComponent>;
     let component: VideoPlayerComponent;
 
+    @Injectable()
+    class MockYouTubeLogic {
+        public getVideoStats(): Observable<any> {
+            return Observable.of({});
+        }
+    }
+
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [ VideoPlayerComponent, VideoPlayerDescriptionComponent ]
+            declarations: [
+                VideoPlayerComponent,
+                VideoPlayerDescriptionComponent,
+                VideoPlayerStatsComponent
+            ]
+        }).overrideComponent(VideoPlayerComponent, {
+            set: {
+                providers: [
+                    { provide: YouTubeLogic, useClass: MockYouTubeLogic }
+                ]
+            }
         });
     }));
     beforeEach(() => {
