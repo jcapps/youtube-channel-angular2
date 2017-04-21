@@ -68,7 +68,7 @@ describe('AllPlaylistsComponent', () => {
 
     it('Should create list of playlists', () => {
         fixture.detectChanges();
-        const list: DebugElement = fixture.debugElement.query(By.css('#playlists-list'));
+        const list: DebugElement = fixture.debugElement.query(By.css('.search-list'));
         const links: Array<DebugElement> = list.queryAll(By.css('a'));
 
         fixture.whenStable().then(() => {
@@ -92,7 +92,7 @@ describe('AllPlaylistsComponent', () => {
 
     it('Should create \'View More\' link if has nextPageToken', () => {
         fixture.detectChanges();
-        const list: DebugElement = fixture.debugElement.query(By.css('#playlists-list'));
+        const list: DebugElement = fixture.debugElement.query(By.css('.search-list'));
         const link: DebugElement = list.queryAll(By.css('a'))[3];
 
         expect(link.query(By.css('div')).nativeElement.textContent).toEqual('View More');
@@ -100,7 +100,7 @@ describe('AllPlaylistsComponent', () => {
 
     it('Should load more results when \'View More\' is clicked', () => {
         fixture.detectChanges();
-        const list: DebugElement = fixture.debugElement.query(By.css('#playlists-list'));
+        const list: DebugElement = fixture.debugElement.query(By.css('.search-list'));
         const link: DebugElement = list.queryAll(By.css('a'))[3];
 
         youtubeLogic.getAllPlaylists.calls.reset();

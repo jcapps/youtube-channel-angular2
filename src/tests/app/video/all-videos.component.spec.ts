@@ -99,7 +99,7 @@ describe('AllVideosComponent', () => {
 
     it('Should create list of videos', () => {
         fixture.detectChanges();
-        const list: DebugElement = fixture.debugElement.query(By.css('#video-list'));
+        const list: DebugElement = fixture.debugElement.query(By.css('.search-list'));
         const links: Array<DebugElement> = list.queryAll(By.css('a'));
 
         fixture.whenStable().then(() => {
@@ -123,7 +123,7 @@ describe('AllVideosComponent', () => {
 
     it('Should create \'View More\' link if has nextPageToken', () => {
         fixture.detectChanges();
-        const list: DebugElement = fixture.debugElement.query(By.css('#video-list'));
+        const list: DebugElement = fixture.debugElement.query(By.css('.search-list'));
         const link: DebugElement = list.queryAll(By.css('a'))[3];
 
         expect(link.query(By.css('div')).nativeElement.textContent).toEqual('View More');
@@ -131,7 +131,7 @@ describe('AllVideosComponent', () => {
 
     it('Should load more results when \'View More\' is clicked', () => {
         fixture.detectChanges();
-        const list: DebugElement = fixture.debugElement.query(By.css('#video-list'));
+        const list: DebugElement = fixture.debugElement.query(By.css('.search-list'));
         const link: DebugElement = list.queryAll(By.css('a'))[3];
 
         link.triggerEventHandler('click', null);
