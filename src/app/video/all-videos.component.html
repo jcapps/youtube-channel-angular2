@@ -1,6 +1,6 @@
-<div id="videos-page">
+<div class="search-results">
     <h2>{{pageTitle}}</h2>
-    <div *ngIf="playlist" id="video-list">
+    <div *ngIf="playlist" class="search-list">
         <a *ngFor="let video of playlist"
             [routerLink]="['/watch', video.snippet.resourceId.videoId]">
             <video-result videoId="{{video.snippet.resourceId.videoId}}"></video-result>
