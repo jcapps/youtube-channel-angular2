@@ -1,16 +1,18 @@
-<nav>
-    <ul>
-        <li><a [routerLink]="['/']"><div>Home</div></a></li>
-        <li class="has-submenu" (mouseover)="showSubmenu($event)" (mouseout)="hideSubmenu($event)">
-            <a [routerLink]="['/playlists']"><div>Playlists</div></a>
-            <ul class="hidden">
-                <li *ngFor="let playlist of allPlaylists">
-                    <playlist-link [playlist]="playlist"></playlist-link>
-                </li>
-                <li><a [routerLink]="['/playlists']"><div class="nav-view-all">View All</div></a></li>
-            </ul>
-        </li>
-        <li><a [routerLink]="['/videos']"><div>Videos</div></a></li>
-        <li><a [routerLink]="['/about']"><div>About</div></a></li>
-    </ul>
-</nav>
+<div id="navbar">
+    <nav>
+        <ul>
+            <li><a [routerLink]="['/']"><div>Home</div></a></li>
+            <li class="has-submenu" (mouseover)="showSubmenu($event)" (mouseout)="hideSubmenu($event)">
+                <a [routerLink]="['/playlists']"><div>Playlists</div></a>
+                <ul class="hidden">
+                    <li *ngFor="let playlist of allPlaylists">
+                        <playlist-link [playlist]="playlist"></playlist-link>
+                    </li>
+                    <li><a [routerLink]="['/playlists']"><div class="nav-view-all">View All</div></a></li>
+                </ul>
+            </li>
+            <li><a [routerLink]="['/videos']"><div>Videos</div></a></li>
+            <li><a [routerLink]="['/about']"><div>About</div></a></li>
+        </ul>
+    </nav>
+</div>

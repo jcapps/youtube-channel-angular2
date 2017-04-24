@@ -1,0 +1,14 @@
+<div id="searchbar">
+    <form (ngSubmit)="onSubmit(searchForm)" #searchForm="ngForm">
+        <img (click)="toggleSearchBar()"
+            id="search-img"
+            src={{searchImgUrl}}
+            alt="Search" />
+        <input ngModel 
+            id="search"
+            name="search"
+            value=""
+            placeholder="Search channel..."
+            style="width: 0px;"/>
+    </form>
+</div>

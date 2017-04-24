@@ -18,6 +18,7 @@ describe('YouTubeLogic', () => {
         public getPlaylist():       Observable<any> { return Observable.of(); }
         public getPlaylistInfo():   Observable<any> { return Observable.of(); }
         public getVideo():          Observable<any> { return Observable.of(); }
+        public search():            Observable<any> { return Observable.of(); }
         public subscribe():         Observable<any> { return Observable.of(); }
     }
 
@@ -123,6 +124,29 @@ describe('YouTubeLogic', () => {
             youtubeLogic.getVideo(videoId).subscribe(result => {
                 expect(result).toEqual(video);
                 expect(youtubeApi.getVideo).toHaveBeenCalledWith(videoId);
+            });
+        });
+    });
+
+    describe('searchChannel', () => {
+        const query = 'QUERY';
+        const pageToken = 'TOKEN';
+        const results = Observable.of({});
+        beforeEach(() => {
+            spyOn(youtubeApi, 'search').and.returnValue(Observable.of(results));
+        });
+
+        it('Should return search results when given a query string', () => {
+            youtubeLogic.searchChannel(query).subscribe(result => {
+                expect(result).toEqual(results);
+                expect(youtubeApi.search).toHaveBeenCalledWith(query, '');
+            });
+        });
+
+        it('Should return search results when given a query string and a pageToken', () => {
+            youtubeLogic.searchChannel(query, pageToken).subscribe(result => {
+                expect(result).toEqual(results);
+                expect(youtubeApi.search).toHaveBeenCalledWith(query, pageToken);
             });
         });
     });

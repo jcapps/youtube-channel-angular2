@@ -11,6 +11,7 @@ const apiUrl = 'https://www.googleapis.com/youtube/v3/';
 const channelUrl = apiUrl + 'channels';
 const playlistsUrl = apiUrl + 'playlists';
 const playlistUrl = apiUrl + 'playlistItems';
+const searchUrl = apiUrl + 'search';
 const videoUrl = apiUrl + 'videos';
 
 @Injectable()
@@ -89,6 +90,20 @@ export class YouTubeApi {
         params.set('part', 'statistics');
 
         return this._http.get(videoUrl, { search: params })
+            .map((response: Response) => response.json());
+    }
+
+    search(query: string, pageToken = ''): Observable<any> {
+        let params = new URLSearchParams();
+        params.set('key', KEY);
+        params.set('channelId', CHANNEL_ID);
+        params.set('maxResults', '25');
+        params.set('part', 'snippet');
+        params.set('q', query);
+        params.set('type', 'playlist,video');
+        params.set('pageToken', pageToken);
+
+        return this._http.get(searchUrl, { search: params })
             .map((response: Response) => response.json());
     }
 

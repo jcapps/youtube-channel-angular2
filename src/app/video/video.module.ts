@@ -18,7 +18,10 @@ import { VideoWatchPageComponent } from './video-watch-page.component';
         RouterModule,
         SharedModule
     ],
-    exports: [ CommonModule ]
+    exports: [
+        CommonModule,
+        VideoResultComponent
+    ]
 })
 
 export class VideoModule {}

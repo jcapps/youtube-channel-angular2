@@ -20,7 +20,10 @@ import { VideoThumbnailComponent } from './video-thumbnail.component';
         RouterModule,
         SharedModule
     ],
-    exports: [ CommonModule ]
+    exports: [
+        CommonModule,
+        PlaylistResultComponent
+    ]
 })
 
 export class PlaylistModule {}

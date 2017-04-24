@@ -1,0 +1,26 @@
+<div class="search-results">
+    <h3>
+        <span>{{pageTitle}}</span>
+        <span
+            [class.results-found]="resultsCount > 0"
+            [class.no-results]="resultsCount == 0">
+            {{query}}
+        </span>
+    </h3>
+    <h4>Results found: {{resultsCount}}</h4>
+    <div *ngIf="resultsCount > 0" class="search-list">
+        <div *ngFor="let result of results">
+            <a *ngIf="result.id.videoId"
+                [routerLink]="['/watch', result.id.videoId]">
+                <video-result [videoId]="result.id.videoId"></video-result>
+            </a>
+            <a *ngIf="result.id.playlistId"
+                [routerLink]="['/playlist', result.id.playlistId]">
+                <playlist-result [playlist]="result"></playlist-result>
+            </a>
+        </div>
+        <a *ngIf="nextPageToken" id="view-more" (click)="loadMoreResults()">
+            <div><b>View More</b></div>
+        </a>
+    </div>
+</div>

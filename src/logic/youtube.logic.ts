@@ -41,6 +41,10 @@ export class YouTubeLogic {
         });
     }
 
+    searchChannel(query: string, pageToken = ''): Observable<any> {
+        return this.youtubeApi.search(query, pageToken);
+    }
+
     subscribeToChannel(): Observable<any> {
         return this.youtubeApi.subscribe();
     }

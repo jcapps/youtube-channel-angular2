@@ -7,6 +7,7 @@ import { AboutModule } from './about/about.module';
 import { HeaderModule } from './header/header.module';
 import { HomeModule } from './home/home.module';
 import { PlaylistModule } from './playlist/playlist.module';
+import { SearchModule } from './search/search.module';
 import { SharedModule } from './shared/shared.module';
 import { VideoModule } from './video/video.module';
 
@@ -25,6 +26,7 @@ import { routes } from './routes';
     HttpModule,
     PlaylistModule,
     RouterModule.forRoot(routes),
+    SearchModule,
     SharedModule,
     VideoModule
   ],

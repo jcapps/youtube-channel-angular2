@@ -140,4 +140,28 @@ describe('YouTube API', () => {
             });
         });
     });
+
+    describe('search', () => {
+        it('Should make call to YouTube API and get search results when passed a query string', () => {
+            const expectedResult = {items: [{}]};
+            spyOn(mockHttp, 'get').and.returnValue(Observable.of(new Response(new ResponseOptions({
+                body: expectedResult
+            }))));
+
+            youtubeApi.search('QUERY').subscribe(result => {
+                expect(result).toEqual(expectedResult);
+            });
+        });
+
+        it('Should make call to YouTube API and get search results when passed a query string and a pageToken', () => {
+            const expectedResult = {items: [{}]};
+            spyOn(mockHttp, 'get').and.returnValue(Observable.of(new Response(new ResponseOptions({
+                body: expectedResult
+            }))));
+
+            youtubeApi.search('QUERY', 'TOKEN').subscribe(result => {
+                expect(result).toEqual(expectedResult);
+            });
+        });
+    });
 });
