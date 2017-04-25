@@ -1,20 +1,20 @@
 <div id="video-statistics">
-    <div *ngIf="stats" class="video-stats">
+    <div *ngIf="video.statistics" class="video-stats">
         <div id="like-bar-container">
             <div id="like-bar"></div>
             <div id="dislike-bar"></div>
-            <div id="empty-bar" *ngIf="stats.likeCount === '0' && stats.dislikeCount === '0'"></div>
+            <div id="empty-bar" *ngIf="video.statistics.likeCount === '0' && video.statistics.dislikeCount === '0'"></div>
         </div>
         <div id="stats">
             <div id="likes-dislikes">
                 <span>Likes: </span>
-                <span id="likes">{{formatNumberString(stats.likeCount)}}</span>
+                <span id="likes">{{formatNumberString(video.statistics.likeCount)}}</span>
                 <span> - </span>
-                <span id="dislikes">{{formatNumberString(stats.dislikeCount)}}</span>
+                <span id="dislikes">{{formatNumberString(video.statistics.dislikeCount)}}</span>
             </div>
             <div id="views">
                 <span>Views: </span>
-                <span>{{formatNumberString(stats.viewCount)}}</span>
+                <span>{{formatNumberString(video.statistics.viewCount)}}</span>
             </div>
             <div id="end-stats"></div>
         </div>

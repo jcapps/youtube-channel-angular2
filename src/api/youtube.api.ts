@@ -77,17 +77,7 @@ export class YouTubeApi {
         let params = new URLSearchParams();
         params.set('key', KEY);
         params.set('id', id);
-        params.set('part', 'snippet');
-
-        return this._http.get(videoUrl, { search: params })
-            .map((response: Response) => response.json());
-    }
-
-    getVideoStats(id: string): Observable<any> {
-        let params = new URLSearchParams();
-        params.set('key', KEY);
-        params.set('id', id);
-        params.set('part', 'statistics');
+        params.set('part', 'snippet,statistics');
 
         return this._http.get(videoUrl, { search: params })
             .map((response: Response) => response.json());

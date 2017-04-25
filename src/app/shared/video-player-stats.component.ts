@@ -1,49 +1,19 @@
-import { AfterViewInit, Component, Input, OnInit, OnChanges } from '@angular/core';
-import { YouTubeLogic } from '../../logic/youtube.logic';
+import { AfterViewInit, Component, Input, OnChanges } from '@angular/core';
 
 @Component({
     selector: 'video-player-stats',
     templateUrl: './video-player-stats.component.html'
 })
 
-export class VideoPlayerStatsComponent implements AfterViewInit, OnInit, OnChanges {
-    @Input() private videoId: string;
-    public stats: any;
-    private observer: MutationObserver;
-    constructor(private youtubeLogic: YouTubeLogic) {}
-
-    ngOnInit(): void {
-        this.getStatistics();
-    }
+export class VideoPlayerStatsComponent implements AfterViewInit, OnChanges {
+    @Input() public video: any;
 
     ngAfterViewInit(): void {
-        this.prepareStatistics();
+        this.setLikeBarWidths();
     }
 
     ngOnChanges(): void {
-        this.getStatistics();
-    }
-
-    getStatistics(): void {
-        this.youtubeLogic.getVideoStats(this.videoId).subscribe(statistics => {
-            this.stats = statistics;
-            this.setLikeBarWidths();
-        });
-    }
-
-    prepareStatistics(): void {
-        // Necessary for when Playlist changes video
-        // (because page does not refresh, and ngOnChanges is not called)
-        this.observer = new MutationObserver(mutations => {
-            mutations.forEach(mutation => {
-                if (mutation.type === 'childList' && this.stats) {
-                    this.setLikeBarWidths();
-                }
-            });
-        });
-        const rootElement = document.getElementById('video-statistics');
-        const mutationConfig = { childList: true };
-        this.observer.observe(rootElement, mutationConfig);
+        this.setLikeBarWidths();
     }
 
     setLikeBarWidths(): void {
@@ -58,8 +28,8 @@ export class VideoPlayerStatsComponent implements AfterViewInit, OnInit, OnChang
                 dislikeBar.removeAttribute('style');
 
                 setTimeout(() => {
-                    const totalCount = parseInt(this.stats.likeCount, 10) + parseInt(this.stats.dislikeCount, 10);
-                    const likePercentage = 100 * (this.stats.likeCount / totalCount);
+                    const totalCount = parseInt(this.video.statistics.likeCount, 10) + parseInt(this.video.statistics.dislikeCount, 10);
+                    const likePercentage = 100 * (this.video.statistics.likeCount / totalCount);
                     const dislikePercentage = 100 - likePercentage;
 
                     likeBar.setAttribute('style', 'width: ' + likePercentage + '%;');

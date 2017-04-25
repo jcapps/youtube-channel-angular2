@@ -1,69 +1,45 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { DebugElement, Injectable } from '@angular/core';
+import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/of';
 
 import { VideoPlayerStatsComponent } from '../../../app/shared/video-player-stats.component';
-import { YouTubeLogic } from '../../../logic/youtube.logic';
 
 describe('VideoPlayerStatsComponent', () => {
-    const statistics = {
-        viewCount: '1000',
-        likeCount: '10',
-        dislikeCount: '1'
+    const video = {
+        statistics: {
+            viewCount: '1000',
+            likeCount: '10',
+            dislikeCount: '1'
+        }
     };
     let fixture: ComponentFixture<VideoPlayerStatsComponent>;
     let component: VideoPlayerStatsComponent;
-    let youtubeLogic: any;
-
-    @Injectable()
-    class MockYouTubeLogic {
-        public getVideoStats(): Observable<any> {
-            return Observable.of({});
-        }
-    }
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             declarations: [ VideoPlayerStatsComponent ]
-        }).overrideComponent(VideoPlayerStatsComponent, {
-            set: {
-                providers: [
-                    { provide: YouTubeLogic, useClass: MockYouTubeLogic }
-                ]
-            }
         });
     }));
     beforeEach(() => {
         fixture = TestBed.createComponent(VideoPlayerStatsComponent);
         component = fixture.componentInstance;
-        spyOn(component, 'getStatistics').and.callThrough();
-        spyOn(component, 'prepareStatistics').and.callThrough();
-        spyOn(component, 'setLikeBarWidths').and.callThrough();
+        component.video = video;
 
-        youtubeLogic = fixture.debugElement.injector.get(YouTubeLogic);
-        spyOn(youtubeLogic, 'getVideoStats').and.returnValue(Observable.of(statistics));
+        spyOn(component, 'setLikeBarWidths').and.callThrough();
     });
 
     it('Should load VideoPlayerStatsComponent', () => {
         expect(component instanceof VideoPlayerStatsComponent).toBe(true);
     });
 
-    it('Should getVideoStats via getStatistics on init', () => {
-        fixture.detectChanges();
-        expect(component.getStatistics).toHaveBeenCalledTimes(1);
-        expect(youtubeLogic.getVideoStats).toHaveBeenCalledTimes(1);
-    });
-
-    it('Should setLikeBarWidths after getting stats', (done: Function) => {
+    it('Should setLikeBarWidths after view has loaded', (done: Function) => {
         fixture.detectChanges();
         const container: DebugElement = fixture.debugElement.query(By.css('#like-bar-container'));
         const likeBar: DebugElement = container.query(By.css('#like-bar'));
         const dislikeBar: DebugElement = container.query(By.css('#dislike-bar'));
 
-        const likeCount = parseInt(statistics.likeCount, 10);
-        const totalCount = likeCount + parseInt(statistics.dislikeCount, 10);
+        const likeCount = parseInt(video.statistics.likeCount, 10);
+        const totalCount = likeCount + parseInt(video.statistics.dislikeCount, 10);
         const likePercentage = 100 * (likeCount / totalCount);
         const dislikePercentage = 100 - likePercentage;
 
@@ -75,11 +51,6 @@ describe('VideoPlayerStatsComponent', () => {
             expect(dislikeBar.nativeElement.classList.contains('displayed')).toEqual(true);
             done();
         }, 100);
-    });
-
-    it('Should prepareStatistics after view loads', () => {
-        fixture.detectChanges();
-        expect(component.prepareStatistics).toHaveBeenCalledTimes(1);
     });
 
     it('Should create video-stats div', () => {
@@ -103,12 +74,14 @@ describe('VideoPlayerStatsComponent', () => {
     });
 
     it('Should create an \'empty\' like bar when likes and dislikes are 0', () => {
-        const likelessStats = {
-            viewCount: '1000',
-            likeCount: '0',
-            dislikeCount: '0'
+        const likelessVideo = {
+            statistics: {
+                viewCount: '1000',
+                likeCount: '0',
+                dislikeCount: '0'
+            }
         };
-        youtubeLogic.getVideoStats.and.returnValue(Observable.of(likelessStats));
+        component.video = likelessVideo;
 
         fixture.detectChanges();
         const container: DebugElement = fixture.debugElement.query(By.css('#like-bar-container'));

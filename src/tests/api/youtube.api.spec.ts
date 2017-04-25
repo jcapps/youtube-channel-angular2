@@ -128,19 +128,6 @@ describe('YouTube API', () => {
         });
     });
 
-    describe('getVideoStats', () => {
-        it('Should make call to YouTube API and get video with statistics when passed a videoId', () => {
-            const expectedResult = {video: { statistics: {} }};
-            spyOn(mockHttp, 'get').and.returnValue(Observable.of(new Response(new ResponseOptions({
-                body: expectedResult
-            }))));
-
-            youtubeApi.getVideoStats('ID').subscribe(result => {
-                expect(result).toEqual(expectedResult);
-            });
-        });
-    });
-
     describe('search', () => {
         it('Should make call to YouTube API and get search results when passed a query string', () => {
             const expectedResult = {items: [{}]};
