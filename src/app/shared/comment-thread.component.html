@@ -1,0 +1,25 @@
+<div class="comment-thread">
+    <comment-block
+        [comment]="parentComment"
+        [videoId]="videoId"
+        (videoSeekEmitter)="videoSeek($event)">
+    </comment-block>
+    <div class="replies">
+        <div class="view-hide-replies">
+            <a *ngIf="nextPageToken" id="view-more-replies" (click)="loadMoreReplies()">
+                <div><b>View More</b></div>
+            </a>
+            <a *ngIf="canHideReplies" class="hide-replies" (click)="hideReplies()">
+                <div><b>Hide Replies</b></div>
+            </a>
+        </div>
+        <div *ngFor="let reply of replies">
+            <hr/>
+            <comment-block
+                [comment]="reply"
+                [videoId]="videoId"
+                (videoSeek)="videoSeek($event)">
+            </comment-block>
+        </div>
+    </div>
+</div>

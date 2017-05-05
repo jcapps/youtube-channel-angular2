@@ -15,7 +15,7 @@ export class VideoPlayerComponent implements OnInit, OnChanges {
     @Input() public video: any;
     @Input() private playlistId: string;
     @Input() private playlistIndex: number;
-    @Output() private updatePlaylist: EventEmitter<number> = new EventEmitter<number>();
+    @Output() private updatePlaylist: EventEmitter<string> = new EventEmitter<string>();
 
     constructor(private ngZone: NgZone) {}
 
@@ -62,5 +62,21 @@ export class VideoPlayerComponent implements OnInit, OnChanges {
             }
         });
         this.isInitialized = true;
+    }
+
+    videoSeek(time: string): void {
+        let hrMinSec = [0, 0, 0];
+        const timeUnits = ['h', 'm', 's'];
+
+        for (let i = 0; i < timeUnits.length; i++) {
+            if (time.indexOf(timeUnits[i]) > 0) {
+                hrMinSec[i] = parseInt(time.split(timeUnits[i])[0], 10);
+                time = time.split(timeUnits[i])[1];
+            }
+        }
+
+        const seconds = 3600 * hrMinSec[0] + 60 * hrMinSec[1] + hrMinSec[2];
+        player.seekTo(seconds, true);
+        window.scrollTo(0, 0);
     }
 }

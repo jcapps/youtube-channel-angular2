@@ -9,6 +9,8 @@ const CHANNEL_ID = process.env.CHANNEL_ID;
 
 const apiUrl = 'https://www.googleapis.com/youtube/v3/';
 const channelUrl = apiUrl + 'channels';
+const commentUrl = apiUrl + 'comments';
+const commentThreadUrl = apiUrl + 'commentThreads';
 const playlistsUrl = apiUrl + 'playlists';
 const playlistUrl = apiUrl + 'playlistItems';
 const searchUrl = apiUrl + 'search';
@@ -80,6 +82,31 @@ export class YouTubeApi {
         params.set('part', 'snippet,statistics');
 
         return this._http.get(videoUrl, { search: params })
+            .map((response: Response) => response.json());
+    }
+
+    getCommentThreads(id: string, sortOrder: string, pageToken = ''): Observable<any> {
+        let params = new URLSearchParams();
+        params.set('key', KEY);
+        params.set('videoId', id);
+        params.set('maxResults', '10');
+        params.set('part', 'snippet');
+        params.set('order', sortOrder);
+        params.set('pageToken', pageToken);
+
+        return this._http.get(commentThreadUrl, { search: params })
+            .map((response: Response) => response.json());
+    }
+
+    getReplyThreads(id: string, maxResults: number, pageToken = ''): Observable<any> {
+        let params = new URLSearchParams();
+        params.set('key', KEY);
+        params.set('parentId', id);
+        params.set('maxResults', maxResults.toString());
+        params.set('part', 'snippet');
+        params.set('pageToken', pageToken);
+
+        return this._http.get(commentUrl, { search: params })
             .map((response: Response) => response.json());
     }
 

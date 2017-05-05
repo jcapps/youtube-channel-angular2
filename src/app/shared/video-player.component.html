@@ -2,4 +2,5 @@
     <div id="player-iframe"></div>
     <video-player-stats [video]="video"></video-player-stats>
     <video-player-description [video]="video"></video-player-description>
+    <video-player-comments [video]="video" (videoSeekEmitter)="videoSeek($event)"></video-player-comments>
 </div>

@@ -1,0 +1,25 @@
+<div *ngIf="!commentThreads || !stats">(Loading comments...)</div>
+
+<div class="video-comments" *ngIf="commentThreads && stats">
+    <div *ngIf="commentThreads.length == 0" class="comment-stats">Comments: 0</div>
+    
+    <div *ngIf="commentThreads.length > 0">
+        <div class="comment-header">
+            <div class="comment-stats">Comments: {{stats.commentCount}}</div>
+            <select class="comment-sort" value={{sortOrder}} (change)="changeOrder($event)">
+                <option value="relevance">Relevance</option>
+                <option value="time">Most Recent</option>
+            </select>
+        </div>
+        <div class="comment-section">
+            <comment-thread *ngFor="let thread of commentThreads"
+                [thread]="thread"
+                [videoId]="video.id"
+                (videoSeekEmitter)="videoSeek($event)">
+            </comment-thread>
+            <a *ngIf="nextPageToken" id="view-more-comments" (click)="loadMoreComments()">
+                <div><b>View More</b></div>
+            </a>
+        </div>
+    </div>
+</div>

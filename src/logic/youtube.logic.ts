@@ -19,6 +19,14 @@ export class YouTubeLogic {
         return this.youtubeApi.getChannelInfo();
     }
 
+    getComments(videoId: string, sortOrder: string, pageToken = ''): Observable<any> {
+        return this.youtubeApi.getCommentThreads(videoId, sortOrder, pageToken);
+    }
+
+    getReplies(commentId: string, maxResults: number, pageToken = ''): Observable<any> {
+        return this.youtubeApi.getReplyThreads(commentId, maxResults, pageToken);
+    }
+
     getPlaylist(id: string, pageToken = ''): Observable<any> {
         return this.youtubeApi.getPlaylist(id, pageToken);
     }

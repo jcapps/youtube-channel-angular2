@@ -1,0 +1,30 @@
+<div class="comment">
+    <a href={{commentUserUrl}} target="_blank">
+        <img src={{commentUserImage}} alt="Profile Image" class="comment-image" />
+    </a>
+    <div class="comment-info">
+        <div>
+            <a class="user-channel" href={{commentUserUrl}} target="_blank">
+                <div>{{commentUserName}}</div>
+            </a>
+            <div class="time-elapsed">{{timeElapsed}}</div>
+        </div>
+
+        <div #text *ngIf="timestamps && timestamps.length" class="comment-text">
+            <span *ngFor="let timestamp of timestamps; let i = index;"><!-- (Using comments to remove spaces between spans)
+                --><span [innerHTML]="commentPieces[i]"></span><!--
+                --><span><a (click)="this.clickTimeStamp(times[i])">{{timestamp}}</a></span><!--
+            --></span><!--
+            --><span [innerHTML]="commentPieces[commentPieces.length - 1]"></span>
+        </div>
+        <div #text *ngIf="!timestamps" class="comment-text" [innerHTML]="cleanComment"></div>
+
+        <a #expand class="hidden read-more" (click)="readMoreClick($event)">
+            {{readMoreText}}
+        </a>
+        <div *ngIf="likeCount > 0">
+            <span class="like-label">Likes: </span>
+            <span class="like-count">{{likeCount}}</span>
+        </div>
+    </div>
+</div>
