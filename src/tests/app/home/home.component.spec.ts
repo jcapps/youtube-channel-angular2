@@ -30,6 +30,9 @@ describe('HomeComponent', () => {
 
     @Injectable()
     class MockYouTubeLogic {
+        public getComments(): Observable<any> {
+            return Observable.of({});
+        }
         public getVideoStats(): Observable<any> {
             return Observable.of({});
         }

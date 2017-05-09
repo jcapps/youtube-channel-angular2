@@ -15,8 +15,10 @@ describe('YouTubeLogic', () => {
         public getAllPlaylists():   Observable<any> { return Observable.of(); }
         public getChannelInfo():    Observable<any> { return Observable.of(); }
         public getChannelDetails(): Observable<any> { return Observable.of(); }
+        public getCommentThreads(): Observable<any> { return Observable.of(); }
         public getPlaylist():       Observable<any> { return Observable.of(); }
         public getPlaylistInfo():   Observable<any> { return Observable.of(); }
+        public getReplyThreads():   Observable<any> { return Observable.of(); }
         public getVideo():          Observable<any> { return Observable.of(); }
         public search():            Observable<any> { return Observable.of(); }
         public subscribe():         Observable<any> { return Observable.of(); }
@@ -75,6 +77,60 @@ describe('YouTubeLogic', () => {
             youtubeLogic.getChannelDetails().subscribe(result => {
                 expect(result).toEqual(channelDetails);
                 expect(youtubeApi.getChannelDetails).toHaveBeenCalled();
+            });
+        });
+    });
+
+    describe('getComments', () => {
+        it('Should return comments when given a videoId and sortOrder', () => {
+            const videoId = '1';
+            const sortOrder = 'relevance';
+            const comments = Observable.of({});
+            spyOn(youtubeApi, 'getCommentThreads').and.returnValue(Observable.of(comments));
+
+            youtubeLogic.getComments(videoId, sortOrder).subscribe(result => {
+                expect(result).toEqual(comments);
+                expect(youtubeApi.getCommentThreads).toHaveBeenCalledWith(videoId, sortOrder, '');
+            });
+        });
+
+        it('Should return comments when given a videoId, sortOrder, and pageToken', () => {
+            const videoId = '1';
+            const sortOrder = 'relevance';
+            const pageToken = 'TOKEN';
+            const comments = Observable.of({});
+            spyOn(youtubeApi, 'getCommentThreads').and.returnValue(Observable.of(comments));
+
+            youtubeLogic.getComments(videoId, sortOrder, pageToken).subscribe(result => {
+                expect(result).toEqual(comments);
+                expect(youtubeApi.getCommentThreads).toHaveBeenCalledWith(videoId, sortOrder, pageToken);
+            });
+        });
+    });
+
+    describe('getReplies', () => {
+        it('Should return replies when given a commentId and maxResults', () => {
+            const commentId = '11';
+            const maxResults = 2;
+            const replies = Observable.of({});
+            spyOn(youtubeApi, 'getReplyThreads').and.returnValue(Observable.of(replies));
+
+            youtubeLogic.getReplies(commentId, maxResults).subscribe(result => {
+                expect(result).toEqual(replies);
+                expect(youtubeApi.getReplyThreads).toHaveBeenCalledWith(commentId, maxResults, '');
+            });
+        });
+
+        it('Should return replies when given a commentId, maxResults, and pageToken', () => {
+            const commentId = '11';
+            const maxResults = 10;
+            const pageToken = 'TOKEN';
+            const replies = Observable.of({});
+            spyOn(youtubeApi, 'getReplyThreads').and.returnValue(Observable.of(replies));
+
+            youtubeLogic.getReplies(commentId, maxResults, pageToken).subscribe(result => {
+                expect(result).toEqual(replies);
+                expect(youtubeApi.getReplyThreads).toHaveBeenCalledWith(commentId, maxResults, pageToken);
             });
         });
     });

@@ -128,6 +128,54 @@ describe('YouTube API', () => {
         });
     });
 
+    describe('getCommentThreads', () => {
+        it('Should make call to YouTube API and get comments when passed a videoId and sortOrder', () => {
+            const expectedResult = {comments: { id: 'XXXXX' }};
+            spyOn(mockHttp, 'get').and.returnValue(Observable.of(new Response(new ResponseOptions({
+                body: expectedResult
+            }))));
+
+            youtubeApi.getCommentThreads('ID', 'relevance').subscribe(result => {
+                expect(result).toEqual(expectedResult);
+            });
+        });
+
+        it('Should make call to YouTube API and get comments when passed a videoId, sortOrder, and pageToken', () => {
+            const expectedResult = {comments: { id: 'XXXXX' }};
+            spyOn(mockHttp, 'get').and.returnValue(Observable.of(new Response(new ResponseOptions({
+                body: expectedResult
+            }))));
+
+            youtubeApi.getCommentThreads('ID', 'relevance', 'TOKEN').subscribe(result => {
+                expect(result).toEqual(expectedResult);
+            });
+        });
+    });
+
+    describe('getReplyThreads', () => {
+        it('Should make call to YouTube API and get replies when passed a commentId and maxResults', () => {
+            const expectedResult = {replies: { id: 'XXXXX' }};
+            spyOn(mockHttp, 'get').and.returnValue(Observable.of(new Response(new ResponseOptions({
+                body: expectedResult
+            }))));
+
+            youtubeApi.getReplyThreads('ID', 2).subscribe(result => {
+                expect(result).toEqual(expectedResult);
+            });
+        });
+
+        it('Should make call to YouTube API and get replies when passed a commentId, maxResults, and pageToken', () => {
+            const expectedResult = {replies: { id: 'XXXXX' }};
+            spyOn(mockHttp, 'get').and.returnValue(Observable.of(new Response(new ResponseOptions({
+                body: expectedResult
+            }))));
+
+            youtubeApi.getReplyThreads('ID', 10, 'TOKEN').subscribe(result => {
+                expect(result).toEqual(expectedResult);
+            });
+        });
+    });
+
     describe('search', () => {
         it('Should make call to YouTube API and get search results when passed a query string', () => {
             const expectedResult = {items: [{}]};

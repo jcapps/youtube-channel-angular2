@@ -59,6 +59,9 @@ describe('PlaylistComponent', () => {
 
     @Injectable()
     class MockYouTubeLogic {
+        public getComments(): Observable<any> {
+            return Observable.of({});
+        }
         public getPlaylist(): Observable<any> {
             return Observable.of(playlist);
         }

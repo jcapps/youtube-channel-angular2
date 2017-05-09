@@ -1,13 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { DebugElement, Injectable } from '@angular/core';
+import { Component, DebugElement, EventEmitter, Input, Output } from '@angular/core';
 import { By } from '@angular/platform-browser';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/of';
 
 import { VideoPlayerComponent } from '../../../app/shared/video-player.component';
-import { VideoPlayerDescriptionComponent } from '../../../app/shared/video-player-description.component';
-import { VideoPlayerStatsComponent } from '../../../app/shared/video-player-stats.component';
-import { YouTubeLogic } from '../../../logic/youtube.logic';
 
 describe('VideoPlayerComponent', () => {
     const video = {
@@ -20,26 +15,39 @@ describe('VideoPlayerComponent', () => {
     let fixture: ComponentFixture<VideoPlayerComponent>;
     let component: VideoPlayerComponent;
 
-    @Injectable()
-    class MockYouTubeLogic {
-        public getVideoStats(): Observable<any> {
-            return Observable.of({});
-        }
+    @Component({
+        selector: 'video-player-description',
+        template: `<div></div>`
+    })
+    class DummyDescriptionComponent {
+        @Input() public video: any;
+    }
+
+    @Component({
+        selector: 'video-player-stats',
+        template: `<div></div>`
+    })
+    class DummyStatsComponent {
+        @Input() public video: any;
+    }
+
+    @Component({
+        selector: 'video-player-comments',
+        template: `<div></div>`
+    })
+    class DummyCommentsComponent {
+        @Input() public video: any;
+        @Output() public videoSeekEmitter: EventEmitter<string> = new EventEmitter<string>();
     }
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             declarations: [
                 VideoPlayerComponent,
-                VideoPlayerDescriptionComponent,
-                VideoPlayerStatsComponent
+                DummyDescriptionComponent,
+                DummyStatsComponent,
+                DummyCommentsComponent
             ]
-        }).overrideComponent(VideoPlayerComponent, {
-            set: {
-                providers: [
-                    { provide: YouTubeLogic, useClass: MockYouTubeLogic }
-                ]
-            }
         });
     }));
     beforeEach(() => {
@@ -66,5 +74,23 @@ describe('VideoPlayerComponent', () => {
 
         expect(description.name).toEqual('video-player-description');
         expect(descriptionInstance.video).toBe(video);
+    });
+
+    it('Should create a video-player-description element', () => {
+        fixture.detectChanges();
+        const stats: DebugElement = fixture.debugElement.query(By.css('video-player-stats'));
+        const statsInstance = stats.componentInstance;
+
+        expect(stats.name).toEqual('video-player-stats');
+        expect(statsInstance.video).toBe(video);
+    });
+
+    it('Should create a video-player-comments element', () => {
+        fixture.detectChanges();
+        const comments: DebugElement = fixture.debugElement.query(By.css('video-player-comments'));
+        const commentsInstance = comments.componentInstance;
+
+        expect(comments.name).toEqual('video-player-comments');
+        expect(commentsInstance.video).toBe(video);
     });
 });

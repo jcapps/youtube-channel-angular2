@@ -28,6 +28,9 @@ describe('VideoWatchPageComponent', () => {
 
     @Injectable()
     class MockYouTubeLogic {
+        public getComments(): Observable<any> {
+            return Observable.of({});
+        }
         public getVideo(): Observable<any> {
             return Observable.of(video);
         }
