@@ -6,8 +6,8 @@
     </comment-block>
     <div class="replies">
         <div class="view-hide-replies">
-            <a *ngIf="nextPageToken" id="view-more-replies" (click)="loadMoreReplies()">
-                <div><b>View More</b></div>
+            <a *ngIf="nextPageToken" class="view-more-replies" (click)="loadMoreReplies()">
+                <div><b>View More Replies</b></div>
             </a>
             <a *ngIf="canHideReplies" class="hide-replies" (click)="hideReplies()">
                 <div><b>Hide Replies</b></div>
