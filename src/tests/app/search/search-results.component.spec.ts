@@ -120,10 +120,8 @@ describe('SearchResultsComponent', () => {
         const querySpan: DebugElement = title.children[1];
         const resultsCount: DebugElement = fixture.debugElement.query(By.css('h4'));
 
-        const queryText = querySpan.nativeElement.textContent.replace(/\r?\n|\r|\s/g, '').trim();
-
         expect(title.children[0].nativeElement.textContent).toEqual('Search results for: ');
-        expect(queryText).toEqual('QUERY');
+        expect(querySpan.nativeElement.innerText).toEqual('QUERY');
         expect(querySpan.nativeElement.classList.contains('results-found')).toEqual(true);
         expect(querySpan.nativeElement.classList.contains('no-results')).toEqual(false);
         expect(resultsCount.nativeElement.textContent).toEqual('Results found: 10');
@@ -140,10 +138,8 @@ describe('SearchResultsComponent', () => {
         const querySpan: DebugElement = title.children[1];
         const resultsCount: DebugElement = fixture.debugElement.query(By.css('h4'));
 
-        const queryText = querySpan.nativeElement.textContent.replace(/\r?\n|\r|\s/g, '').trim();
-
         expect(title.children[0].nativeElement.textContent).toEqual('Search results for: ');
-        expect(queryText).toEqual('QUERY');
+        expect(querySpan.nativeElement.innerText).toEqual('QUERY');
         expect(querySpan.nativeElement.classList.contains('results-found')).toEqual(false);
         expect(querySpan.nativeElement.classList.contains('no-results')).toEqual(true);
         expect(resultsCount.nativeElement.textContent).toEqual('Results found: 0');

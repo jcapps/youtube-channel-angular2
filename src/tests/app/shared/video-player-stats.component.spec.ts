@@ -100,16 +100,13 @@ describe('VideoPlayerStatsComponent', () => {
         const views: DebugElement = stats.query(By.css('#views'));
         const endDiv: DebugElement = stats.query(By.css('#end-stats'));
 
-        const likesText = likesDislikes.nativeElement.textContent.replace(/\r?\n|\r|\s/g, '').trim();
-        const viewsText = views.nativeElement.textContent.replace(/\r?\n|\r|\s/g, '').trim();
-
         expect(stats.name).toEqual('div');
         expect(likesDislikes.name).toEqual('div');
         expect(likes.name).toEqual('span');
         expect(dislikes.name).toEqual('span');
         expect(views.name).toEqual('div');
         expect(endDiv.name).toEqual('div');
-        expect(likesText).toEqual('Likes:10-1');
-        expect(viewsText).toEqual('Views:1,000');
+        expect(likesDislikes.nativeElement.innerText).toEqual('Likes: 10 - 1');
+        expect(views.nativeElement.innerText).toEqual('Views: 1,000');
     });
 });
