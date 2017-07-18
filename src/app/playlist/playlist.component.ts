@@ -31,18 +31,17 @@ export class PlaylistComponent implements OnInit {
         this.playlistId = this.route.snapshot.params['id'];
         this.videoInPlaylist = 0;
 
-        this.youtubeLogic.getPlaylist(this.playlistId).subscribe((playlist: any) => {
-            this.playlist = playlist.items;
-            this.nextPageToken = playlist.nextPageToken;
-
-            const videoId = this.playlist[this.videoInPlaylist].snippet.resourceId.videoId;
-            this.youtubeLogic.getVideo(videoId).subscribe((video: any) => {
-                this.currentVideo = video.items[0];
-            });
-        });
-
         this.youtubeLogic.getPlaylistInfo(this.playlistId).subscribe((playlistInfo: any) => {
             this.playlistInfo = playlistInfo.items[0];
+            this.youtubeLogic.getPlaylist(this.playlistId).subscribe((playlist: any) => {
+                this.playlist = playlist.items;
+                this.nextPageToken = playlist.nextPageToken;
+
+                const videoId = this.playlist[this.videoInPlaylist].snippet.resourceId.videoId;
+                this.youtubeLogic.getVideo(videoId).subscribe((video: any) => {
+                    this.currentVideo = video.items[0];
+                });
+            });
         });
     }
 
