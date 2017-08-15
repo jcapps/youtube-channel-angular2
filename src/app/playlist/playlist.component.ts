@@ -21,7 +21,7 @@ export class PlaylistComponent implements OnInit {
 
     ngOnInit(): void {
         this.router.events.subscribe(res => {
-            if (res instanceof NavigationEnd) {
+            if (res instanceof NavigationEnd && res.url.indexOf('/playlist/') >= 0) {
                 this.initializePlaylist();
             }
         });
@@ -32,6 +32,7 @@ export class PlaylistComponent implements OnInit {
         this.videoInPlaylist = 0;
 
         this.youtubeLogic.getPlaylistInfo(this.playlistId).subscribe((playlistInfo: any) => {
+            document.title = playlistInfo.items[0].snippet.title;
             this.playlistInfo = playlistInfo.items[0];
             this.youtubeLogic.getPlaylist(this.playlistId).subscribe((playlist: any) => {
                 this.playlist = playlist.items;

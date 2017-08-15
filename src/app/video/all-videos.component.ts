@@ -16,6 +16,7 @@ export class AllVideosComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
+        document.title = this.pageTitle;
         this.recentUploadsLogic.getRecentUploadsPlaylist().subscribe((playlist: any) => {
             this.playlist = playlist.items;
             this.nextPageToken = playlist.nextPageToken;

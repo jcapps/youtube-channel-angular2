@@ -10,6 +10,7 @@ export class HomeComponent implements OnInit {
     constructor(private recentUploadsLogic: RecentUploadsLogic) {}
 
     ngOnInit(): void {
+        document.title = 'Home: ' + this.pageTitle;
         this.recentUploadsLogic.getMostRecentUpload().subscribe((video: any) => {
             this.video = video.items[0];
         });

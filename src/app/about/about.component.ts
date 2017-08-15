@@ -11,6 +11,7 @@ export class AboutComponent implements OnInit {
     constructor(private youtubeLogic: YouTubeLogic) {}
 
     ngOnInit(): void {
+        document.title = this.pageTitle;
         this.youtubeLogic.getChannelInfo().subscribe(channel => {
             this.description = channel.items[0].snippet.description.split('\n');
             this.profilePicUrl = channel.items[0].snippet.thumbnails.medium.url;

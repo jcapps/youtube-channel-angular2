@@ -16,6 +16,7 @@ export class VideoWatchPageComponent implements OnInit {
         const videoId = this.route.snapshot.params['id'];
 
         this.youtubeLogic.getVideo(videoId).subscribe((video: any) => {
+            document.title = video.items[0].snippet.title;
             this.video = video.items[0];
         });
     }

@@ -11,6 +11,7 @@ export class AllPlaylistsComponent implements OnInit {
     constructor(private youtubeLogic: YouTubeLogic) {}
 
     ngOnInit(): void {
+        document.title = this.pageTitle;
         this.youtubeLogic.getAllPlaylists().subscribe((playlists: any) => {
             this.playlists = playlists.items;
             this.nextPageToken = playlists.nextPageToken;

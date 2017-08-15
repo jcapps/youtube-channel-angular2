@@ -21,8 +21,9 @@ export class SearchResultsComponent implements OnInit {
 
     ngOnInit(): void {
         this.router.events.subscribe(res => {
-            if (res instanceof NavigationEnd) {
+            if (res instanceof NavigationEnd && res.url.indexOf('/search/') >= 0) {
                 this.query = this.route.snapshot.params['q'];
+                document.title = 'Search results for: ' + this.query;
                 this.youtubeLogic.searchChannel(this.query).subscribe(result => {
                     this.results = result.items;
                     this.resultsCount = result.pageInfo.totalResults;
